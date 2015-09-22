@@ -1,0 +1,24 @@
+#araa-register label {
+    display: block;
+}
+
+#araa-register label.secondary {
+    font-size: 80%;
+}
+
+#araa-register input[type=text],
+#araa-register input[type=password],
+#araa-register input[type=email],
+#araa-register input[type=tel],
+#araa-register textarea {
+    padding: 10px;
+    width: 100%;
+}
+
+#araa-register .errors {
+    color: red;
+}
+
+#araa-register .success {
+    color: green;
+}
