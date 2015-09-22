@@ -11,6 +11,7 @@ add_action('admin_menu', function() {
 });
 
 add_action('admin_init', function() {
+    register_setting('araa_registration_group', 'araa_mailing_list_requests');
     register_setting('araa_registration_group', 'araa_client_id');
     register_setting('araa_registration_group', 'araa_client_secret');
     register_setting('araa_registration_group', 'araa_access_token');
@@ -22,6 +23,14 @@ add_action('admin_init', function() {
         'Registration',
         'araa_registration_settings_callback',
         'araa'
+    );
+
+    add_settings_field(
+        'araa_mailing_list_requests',
+        'Mailing List Requests Email',
+        araa_text_setting_callback('araa_mailing_list_requests'),
+        'araa',
+        'araa_registration_group'
     );
 
     add_settings_field(

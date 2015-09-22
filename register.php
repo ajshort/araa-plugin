@@ -131,7 +131,7 @@ EOS;
     }
 
     // Subscribe the user to the mailing list.
-    $to = 'robotics-australia-nz-list-request@lists.csiro.au';
+    $to = get_option('araa_mailing_list_requests');
     $command = array('subscribe');
 
     if (!empty($reg->password)) {
