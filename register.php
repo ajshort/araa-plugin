@@ -2,6 +2,7 @@
 
 namespace Araa;
 
+use Akismet;
 use Google_Auth_Exception;
 use Google_Client;
 use Google_Http_Request;
