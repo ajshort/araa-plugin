@@ -10,9 +10,14 @@
 #araa-register input[type=password],
 #araa-register input[type=email],
 #araa-register input[type=tel],
-#araa-register textarea {
+#araa-register textarea,
+#araa-register select {
     padding: 10px;
     width: 100%;
+}
+
+#araa-register #address-2 {
+    margin-top: 5px;
 }
 
 #araa-register .errors {
