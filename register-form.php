@@ -11,7 +11,8 @@ $registered = false;
 $errors = null;
 
 $data = [
-    'name' => '',
+    'first_name' => '',
+    'last_name' => '',
     'email' => '',
     'phone' => '',
     'country' => 'AU',
@@ -56,8 +57,13 @@ if ($_POST) {
             <h3>Personal Details</h3>
 
             <p>
-                <label for="name">Name <span class="required">*</span></label>
-                <input type="text" id="name" name="araa_name" value="<?php esc_attr_e($data['name']); ?>" />
+                <label for="first_name">First Name <span class="required">*</span></label>
+                <input type="text" id="first_name" name="araa_first_name" value="<?php esc_attr_e($data['first_name']); ?>" />
+            </p>
+
+            <p>
+                <label for="last_name">Last (Family) Name <span class="required">*</span></label>
+                <input type="text" id="last_name" name="araa_last_name" value="<?php esc_attr_e($data['last_name']); ?>" />
             </p>
 
             <p>

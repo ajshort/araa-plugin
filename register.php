@@ -20,8 +20,12 @@ function araa_registration_process($data) {
         return new WP_Error('nonce', 'Your session has expired, please submit the form again');
     }
 
-    if (empty($data['name'])) {
-        return new WP_Error('name', 'You must provide a name');
+    if (empty($data['first_name'])) {
+        return new WP_Error('first_name', 'You must provide your first name');
+    }
+
+    if (empty($data['last_name'])) {
+        return new WP_Error('last_name', 'You must provide your last name');
     }
 
     if (empty($data['email']) || !is_email($data['email'])) {
@@ -55,9 +59,14 @@ function araa_registration_process($data) {
     }
 
     $client = new Google_Client();
-    $client->setClientId(get_option('araa_client_id'));
-    $client->setClientSecret(get_option('araa_client_secret'));
-    $client->setAccessToken(get_option('araa_access_token'));
+
+    try {
+        $client->setClientId(get_option('araa_client_id'));
+        $client->setClientSecret(get_option('araa_client_secret'));
+        $client->setAccessToken(get_option('araa_access_token'));
+    } catch (Google_Auth_Exception $ex) {
+        return new WP_Error('auth', 'A system error was encountered processing your registration. Please try again later.');
+    }
 
     if (araa_registration_is_duplicate($client, $data['email'])) {
         return new WP_Error('duplicate', 'A registration with this email address has already been submitted');
@@ -66,7 +75,8 @@ function araa_registration_process($data) {
     // The registraion is valid, so write it to the sheet.
     $body = <<<EOS
 <entry xmlns="http://www.w3.org/2005/Atom" xmlns:gsx="http://schemas.google.com/spreadsheets/2006/extended">
-    <gsx:name>%s</gsx:name>
+    <gsx:first_name>%s</gsx:first_name>
+    <gsx:last_name>%s</gsx:last_name>
     <gsx:date>%s</gsx:date>
     <gsx:email>%s</gsx:email>
     <gsx:phone>%s</gsx:phone>
@@ -81,7 +91,8 @@ EOS;
 
     $body = sprintf(
         $body,
-        esc_html($data['name']),
+        esc_html($data['first_name']),
+        esc_html($data['last_name']),
         esc_html(date('c')),
         esc_html($data['email']),
         esc_html($data['phone']),
